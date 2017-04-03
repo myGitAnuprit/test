@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "scripts": {
+    "start":"node test1.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myGitAnuprit/test.git"
