@@ -1,19 +1,19 @@
 
-var http = require('http'),
-    fs = require('fs');
+var http = require('http');
+var ejs = require('ejs');
+var  fs = require('fs');
 
 
-fs.readFile('./index.html', function (err, html) {
+http.createServer(function(req,res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+
+  //since we are in a request handler function
+  //we're using readFile instead of readFileSync
+  fs.readFile('index.html', 'utf-8', function(err, content) {
     if (err) {
-        throw err; 
-    }       
-    http.createServer(function(request, response) {  
-        response.writeHeader(200, {"Content-Type": "text/html"});  
-        response.write(html);  
-        response.end();  
-    }).listen(8000);
-});
-
+      res.end('error occurred');
+      return;
+    }
 
 var weather = require('openweather-apis');
 weather.setLang('in');
@@ -37,4 +37,10 @@ weather.getHumidity(function(err, hum)
 	{
        	 console.log(" Humidity: ", hum," grams per cubic meter. ");
 	});
+
+    var renderedHtml = ejs.render(content, {pres: pres, temp:temp, hum:hum});  //get redered HTML code
+    res.end(renderedHtml);
+  });
+}).listen(8000);
+
 
