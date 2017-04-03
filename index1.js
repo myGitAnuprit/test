@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path'); //Use the path to tell where find the .ejs files
 // view engine setup
-app.set('views', path.join(__dirname, 'day-3/test/node_modules')); // here the .ejs files is in views folders
+app.set('views', path.join(__dirname, 'day-3\test\node_modules')); // here the .ejs files is in views folders
 app.set('view engine', 'ejs'); //tell the template engine
 
 
